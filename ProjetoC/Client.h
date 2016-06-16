@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 typedef struct client{
-    int cod;
+    int index;
     char nome[31];
     char empresa[31];
     char departamento[31];
@@ -24,7 +24,7 @@ typedef struct client{
 #endif /* Client_h */
 
 
-Client newClient(int cod,
+Client newClient(
                 char nome[30],
                 char empresa[30],
                 char departamento[30],
@@ -33,7 +33,6 @@ Client newClient(int cod,
                 char email[40]);
 
 void updateClientData(Client *c,
-                      int cod,
                       char nome[30],
                       char empresa[30],
                       char departamento[30],

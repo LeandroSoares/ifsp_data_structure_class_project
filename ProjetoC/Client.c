@@ -8,14 +8,14 @@
 
 #include "Client.h"
 
-Client newClient(int cod,
+Client newClient(
                    char nome[30],
                    char empresa[30],
                    char departamento[30],
                    char telefone[18],
                    char celular[18],
                    char email[40]) {
-    Client c;
+    Client c;c.index=0;
     strcpy(c.nome,nome);
     strcpy(c.empresa,empresa);
     strcpy(c.departamento,departamento);
@@ -26,7 +26,6 @@ Client newClient(int cod,
     return c;
 }
 void updateClientData(Client *c,
-                      int cod,
                       char nome[30],
                       char empresa[30],
                       char departamento[30],
@@ -68,13 +67,7 @@ void getClientFromUser(Client *c) {
     
     printf("Email:[40 caracteres]\n");
     scanf(" %s", email);
-    updateClientData(c,0, nome, empresa, departamento, telefone, celular, email);
-    free(nome);
-    free(empresa);
-    free(departamento);
-    free(telefone);
-    free(celular);
-    free(email);
+    updateClientData(c, nome, empresa, departamento, telefone, celular, email);
 }
 void getClientFromUserChoice(Client *c) {
     
@@ -85,7 +78,7 @@ void getClientFromUserChoice(Client *c) {
     char celular[18];
     char email[40];
     
-    printf("cod:%d\n",c->cod);
+    printf("cod:%d\n",c->index);
     
     if(desejaEditar("Nome", c->nome)){
         printf("Nome:[30 caracteres]\n");
@@ -126,7 +119,7 @@ void getClientFromUserChoice(Client *c) {
     }else{
         strcpy(email, c->email);
     }
-    updateClientData(c,c->cod||0, nome, empresa, departamento, telefone, celular, email);
+    updateClientData(c, nome, empresa, departamento, telefone, celular, email);
 }
 
 int desejaEditar(char *field,char *value) {
@@ -137,7 +130,7 @@ int desejaEditar(char *field,char *value) {
 }
 
 void printClient(Client current) {
-    printf("COD:%d\n Nome: %s", current.cod, current.nome);
+    printf("COD:%d\n Nome: %s", current.index, current.nome);
     printf("\n Empresa: %s", current.empresa);
     printf("\n Departamento: %s", current.departamento);
     printf("\n Telefone: %s", current.telefone);

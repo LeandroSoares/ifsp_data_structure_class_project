@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "Client.h"
 #endif /* ClientCollection_h */
 typedef struct client_collection * ClientCollection;
@@ -28,7 +29,9 @@ int shift(ClientCollection *li);
 int push(ClientCollection *li, Client al);
 int pop(ClientCollection *li);
 
-int insertClientOrdered(ClientCollection *li, Client al);
+int insertClientOrdered(ClientCollection *li, Client client);
 void printAllClients(ClientCollection * cc);
-Client getClientByCod(ClientCollection *cc, int cod);
-void updateClientByCod(ClientCollection * cc, int cod);
+Client getClientByIndex(ClientCollection *cc, int index);
+void updateClientByIndex(ClientCollection * cc, int index);
+int deleteClientByIndex(ClientCollection *cc, int index);
+Client * getClientByNome(ClientCollection *cc, char nome[30]);

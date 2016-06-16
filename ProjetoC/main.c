@@ -34,9 +34,9 @@ void s_clear() { system("clear");}
 int main(int argc, const char * argv[]) {
 
     Client c1,c2,c3;
-    c1 = newClient(0, "Leandro", "ACME.SA", "RD", "55 11 2222 3333", "55 11 95774 6243", "leandro@acmesa.com");
-    c2 = newClient(0, "Leandro", "ACME.SA", "RD", "55 11 2222 3333", "55 11 95774 6243", "leandro@acmesa.com");
-    c3 = newClient(0, "Leandro", "ACME.SA", "RD", "55 11 2222 3333", "55 11 95774 6243", "leandro@acmesa.com");
+    c1 = newClient("Leandro", "ACME.SA", "RD", "55 11 2222 3333", "55 11 99999 9999", "leandro@acmesa.com");
+    c2 = newClient("Jonas", "ACME.SA", "RH", "55 11 2222 3333", "55 11 44444 4444", "jonas@acmesa.com");
+    c3 = newClient("Fabbrizio", "ACME.SA", "Management", "55 11 2222 3333", "55 11 33333 3333", "fabbrizio@acmesa.com");
     
     ClientCollection * collection = newClientCollection();
     push(collection, c1);
@@ -76,7 +76,7 @@ int main(int argc, const char * argv[]) {
                 printf("Procurando client por cod.\nDigite o cod:");
                 
                 scanf("%d", &cod);
-                cli = getClientByCod(collection, cod);
+                cli = getClientByIndex(collection, cod);
                 printClient(cli);
                 s_pause();
                 break;
@@ -84,8 +84,9 @@ int main(int argc, const char * argv[]) {
                 printf("Procurando client por nome.\nDigite o nome:");
                 char nome[30];
                 scanf("%s", nome);
-//                cli = getClientByCod(collection, id);
-//                printClient(cli);
+                Client *ccc;
+                ccc = getClientByNome(collection, nome);
+                printClient((*ccc));
                 s_pause();
                 break;
             case 5:
@@ -93,10 +94,17 @@ int main(int argc, const char * argv[]) {
                 printf("Procurando client por cod.\nDigite o cod:");
                 
                 scanf("%d", &cod);
-                updateClientByCod(collection, cod);
+                updateClientByIndex(collection, cod);
                 printf("Cliente Atualizado!\n");
                 s_pause();
                 break;
+            case 6:
+                printf("Deletando client por cod.\nDigite o cod:");
+                
+                scanf("%d", &cod);
+                deleteClientByIndex(collection, cod);
+                break;
+                
             default:
                 break;
         }

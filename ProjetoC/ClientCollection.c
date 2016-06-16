@@ -47,7 +47,7 @@ int lenghtClientCollection(ClientCollection *cc) {
     CC * no = *cc;
     while (no!=NULL) {
         counter++;
-        no->client.cod = counter;
+        no->client.index = counter;
         no=no->next;
     }
     return counter;
@@ -116,13 +116,13 @@ int pop(ClientCollection *li) {
     return 1;
 }
 
-int insertClientOrdered(ClientCollection *li, Client al){
+int insertClientOrdered(ClientCollection *li, Client client){
     if(li==NULL)return 0;
     
     CC *no = (CC*)malloc(sizeof(CC));
     if (no==NULL)return 0;
-    al.cod = lenghtClientCollection(li)+1;
-    no->client=al;
+    client.index = lenghtClientCollection(li)+1;
+    no->client=client;
     no->next=NULL;
     if(isEmptyClientCollection(li)){
         printf("lista vazia");
@@ -131,7 +131,7 @@ int insertClientOrdered(ClientCollection *li, Client al){
     }
     else{
         CC *ant = NULL,*atual = *li;
-        while (atual!=NULL && atual->client.cod<al.cod) {
+        while (atual!=NULL && atual->client.index<client.index) {
             ant=atual;
             atual = atual->next;
         }
@@ -154,30 +154,81 @@ void printAllClients(ClientCollection * cc) {
     
     while (no!=NULL) {
         Client current = no->client;
-        printf("    (cod:%d nome: %s)\n", current.cod, current.nome);
+        printf("    (cod:%d nome: %s)\n", current.index, current.nome);
         no = no->next;
     }
     printf("]\n");
 }
 
-Client getClientByCod(ClientCollection *cc, int cod){
+Client getClientByIndex(ClientCollection *cc, int index){
     CC *no =*cc;
     Client current = no->client;
     while (no!=NULL) {
-        if(current.cod==cod)break;
+        if(current.index==index)break;
         no = no->next;
         current = no->client;
     }
     return current;
 }
-void updateClientByCod(ClientCollection * cc, int cod){
+
+int isEqualString(char *a,char *b){
+    for (; *a; ++a) {
+        if(tolower(*a)!=tolower(*b))return 0;
+        ++b;
+    }
+    return 1;
+}
+Client * getClientByNome(ClientCollection *cc, char nome[30]){
     CC *no =*cc;
     Client current = no->client;
     while (no!=NULL) {
-        if(current.cod==cod)break;
+        if(isEqualString(current.nome, nome)){
+            return &no->client;
+        }
+        else{
+        
+            no = no->next;
+            if(no!=NULL){
+                current = no->client;
+            }
+        }
+    }
+    return NULL;
+}
+
+
+void updateClientByIndex(ClientCollection * cc, int index){
+    CC *no =*cc;
+    Client current = no->client;
+    while (no!=NULL) {
+        if(current.index==index)break;
         no = no->next;
         current = no->client;
     }
     getClientFromUserChoice(&no->client);
     printClient(no->client);
+}
+
+int deleteClientByIndex(ClientCollection*list, int index){
+    if(list==NULL)return 0;
+    
+    CC *aux=*list;
+    CC *last;
+    last=aux;
+    while (aux!=NULL &&aux->client.index!=index) {
+        last=aux;
+        aux=aux->next;
+    }
+    if (aux==NULL) {
+        return 0;
+    }
+    if(aux==*list){
+        *list=aux->next;
+    }else
+    {
+        last->next=aux->next;
+    }
+    free(aux);
+    lenghtClientCollection(list);
+    return 1;
 }
