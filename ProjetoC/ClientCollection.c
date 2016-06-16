@@ -200,6 +200,7 @@ Client * getClientByNome(ClientCollection *cc, char nome[30]){
 void updateClientByIndex(ClientCollection * cc, int index){
     CC *no =*cc;
     Client current = no->client;
+    if(lenghtClientCollection(cc)<index)return;
     while (no!=NULL) {
         if(current.index==index)break;
         no = no->next;
@@ -231,4 +232,15 @@ int deleteClientByIndex(ClientCollection*list, int index){
     free(aux);
     lenghtClientCollection(list);
     return 1;
+}
+
+void saveCollectionToFile(FILE * file, ClientCollection * cc){
+    CC *no =*cc;
+    while (no!=NULL) {
+        Client current = no->client;
+        saveClientToFile(file, current);
+        if(no->next!=NULL)
+            fputs("\n", file);
+        no = no->next;
+    }
 }

@@ -45,3 +45,8 @@ void getClientFromUserChoice(Client *c);
 
 void printClient(Client current);
 int desejaEditar();
+
+
+void saveClientToFile(FILE *file, Client client);
+char * clientEncode(char *data, int length);
+Client decodeClientData(char *data);

@@ -35,3 +35,4 @@ Client getClientByIndex(ClientCollection *cc, int index);
 void updateClientByIndex(ClientCollection * cc, int index);
 int deleteClientByIndex(ClientCollection *cc, int index);
 Client * getClientByNome(ClientCollection *cc, char nome[30]);
+void saveCollectionToFile(FILE * file, ClientCollection * cc);

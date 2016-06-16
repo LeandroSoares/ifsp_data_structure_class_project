@@ -32,16 +32,23 @@ void s_clear() { system("clear");}
 
 
 int main(int argc, const char * argv[]) {
-
-    Client c1,c2,c3;
-    c1 = newClient("Leandro", "ACME.SA", "RD", "55 11 2222 3333", "55 11 99999 9999", "leandro@acmesa.com");
-    c2 = newClient("Jonas", "ACME.SA", "RH", "55 11 2222 3333", "55 11 44444 4444", "jonas@acmesa.com");
-    c3 = newClient("Fabbrizio", "ACME.SA", "Management", "55 11 2222 3333", "55 11 33333 3333", "fabbrizio@acmesa.com");
     
     ClientCollection * collection = newClientCollection();
-    push(collection, c1);
-    push(collection, c2);
-    push(collection, c3);
+    FILE *save;
+    
+    save = fopen("save.txt", "r");
+    char data[170];
+    printf("Carregando arquivo de save...\n");
+    
+    while(!feof(save)) {
+        fgets(data, sizeof(data), save);
+        Client decoded = decodeClientData(data);
+        push(collection, decoded);
+    }
+    
+    printf("Arquivo arquivo carregado!\n");
+    fclose(save);
+    //inicia programa
     
     int choice = -1;
     Client cli;
@@ -57,7 +64,9 @@ int main(int argc, const char * argv[]) {
         printf("0 - sair\n");
         
         scanf("%d",&choice);
+        
         s_clear();
+        
         switch (choice) {
             case 1:
                 printf("Novo contato\n");
@@ -104,14 +113,20 @@ int main(int argc, const char * argv[]) {
                 scanf("%d", &cod);
                 deleteClientByIndex(collection, cod);
                 break;
-                
+            case 0:
+                break;
             default:
+                printf("Opção %d invalida\n", choice);
+                s_pause();
                 break;
         }
-    }while (choice !=0);
+    } while (choice !=0);
     
     
+    save = fopen("save.txt", "w");
     printf("\n\nSalvando dados...\n\n");
+    saveCollectionToFile(save, collection);
     
+    fclose(save);
     return 0;
 }
