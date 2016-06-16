@@ -32,4 +32,17 @@ Client newClient(int cod,
                 char celular[18],
                 char email[40]);
 
-char* clientToString(Client c);
+void updateClientData(Client *c,
+                      int cod,
+                      char nome[30],
+                      char empresa[30],
+                      char departamento[30],
+                      char telefone[18],
+                      char celular[18],
+                      char email[40]);
+
+void getClientFromUser(Client *c);
+void getClientFromUserChoice(Client *c);
+
+void printClient(Client current);
+int desejaEditar();

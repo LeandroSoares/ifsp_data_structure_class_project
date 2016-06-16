@@ -20,7 +20,7 @@ void s_clear() { system("cls");}
 #endif
 #elif __APPLE__
 void s_pause(){
-    printf("Pressione qualquer tecla para continuar...\n");
+    printf("Pressione enter para continuar...\n");
     getchar();
     getchar();
 }
@@ -39,58 +39,64 @@ int main(int argc, const char * argv[]) {
     c3 = newClient(0, "Leandro", "ACME.SA", "RD", "55 11 2222 3333", "55 11 95774 6243", "leandro@acmesa.com");
     
     ClientCollection * collection = newClientCollection();
+    push(collection, c1);
+    push(collection, c2);
+    push(collection, c3);
     
     int choice = -1;
-    
+    Client cli;
+    int cod;
     do {
         s_clear();
         printf("1 - Novo contato\n");
         printf("2 - Ver todos\n");
-        printf("3 - Ver contato id\n");
+        printf("3 - Ver contato por cod\n");
         printf("4 - Ver contato nome\n");
         printf("5 - Editar contato nome\n");
         printf("6 - deletar contato\n");
         printf("0 - sair\n");
         
         scanf("%d",&choice);
-        
+        s_clear();
         switch (choice) {
             case 1:
-                s_clear();
-                
                 printf("Novo contato\n");
-                char nome[30];
-                char empresa[30];
-                char departamento[30];
-                char telefone[18];
-                char celular[18];
-                char email[40];
-                
-                printf("Nome:[30 caracteres]\n");
-                scanf(" %s",nome);
-                
-                printf("Empresa:[30 caracteres]\n");
-                scanf(" %s",empresa);
-                
-                printf("Departamento:[30 caracteres]\n");
-                scanf(" %s", departamento);
-                
-                printf("Telefone:[18 caracteres]\n");
-                scanf(" %s", telefone);
-                
-                printf("Celular:[18 caracteres]\n");
-                scanf(" %s", celular);
-                
-                printf("Email:[40 caracteres]\n");
-                scanf(" %s", email);
-                push(collection, newClient(0, nome, empresa, departamento, telefone, celular, email));
+                getClientFromUser(&cli);
+                push(collection, cli);
                 printf("Cliente adicionado!\n");
                 s_pause();
                 break;
+                
             case 2:
-                system("clear");
                 printAllClients(collection);
                 s_pause();
+                break;
+                
+            case 3:
+                printf("Procurando client por cod.\nDigite o cod:");
+                
+                scanf("%d", &cod);
+                cli = getClientByCod(collection, cod);
+                printClient(cli);
+                s_pause();
+                break;
+            case 4:
+                printf("Procurando client por nome.\nDigite o nome:");
+                char nome[30];
+                scanf("%s", nome);
+//                cli = getClientByCod(collection, id);
+//                printClient(cli);
+                s_pause();
+                break;
+            case 5:
+                printf("Atualizar contato\n");
+                printf("Procurando client por cod.\nDigite o cod:");
+                
+                scanf("%d", &cod);
+                updateClientByCod(collection, cod);
+                printf("Cliente Atualizado!\n");
+                s_pause();
+                break;
             default:
                 break;
         }

@@ -30,3 +30,5 @@ int pop(ClientCollection *li);
 
 int insertClientOrdered(ClientCollection *li, Client al);
 void printAllClients(ClientCollection * cc);
+Client getClientByCod(ClientCollection *cc, int cod);
+void updateClientByCod(ClientCollection * cc, int cod);

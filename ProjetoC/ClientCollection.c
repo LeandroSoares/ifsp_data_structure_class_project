@@ -128,7 +128,8 @@ int insertClientOrdered(ClientCollection *li, Client al){
         printf("lista vazia");
         *li=no;
         
-    }else{
+    }
+    else{
         CC *ant = NULL,*atual = *li;
         while (atual!=NULL && atual->client.cod<al.cod) {
             ant=atual;
@@ -148,17 +149,35 @@ int insertClientOrdered(ClientCollection *li, Client al){
 }
 
 void printAllClients(ClientCollection * cc) {
-    printf("Clientes:\n\n");
+    printf("ClientCollection:[\n");
     CC *no =*cc;
     
     while (no!=NULL) {
         Client current = no->client;
-        printf("COD:%d\n Nome: %s", current.cod, current.nome);
-        printf("\n Empresa: %s", current.empresa);
-        printf("\n Departamento: %s", current.departamento);
-        printf("\n Telefone: %s", current.telefone);
-        printf("\n Celular: %s", current.celular);
-        printf("\n Email: %s\n\n", current.email);
+        printf("    (cod:%d nome: %s)\n", current.cod, current.nome);
         no = no->next;
     }
+    printf("]\n");
+}
+
+Client getClientByCod(ClientCollection *cc, int cod){
+    CC *no =*cc;
+    Client current = no->client;
+    while (no!=NULL) {
+        if(current.cod==cod)break;
+        no = no->next;
+        current = no->client;
+    }
+    return current;
+}
+void updateClientByCod(ClientCollection * cc, int cod){
+    CC *no =*cc;
+    Client current = no->client;
+    while (no!=NULL) {
+        if(current.cod==cod)break;
+        no = no->next;
+        current = no->client;
+    }
+    getClientFromUserChoice(&no->client);
+    printClient(no->client);
 }
