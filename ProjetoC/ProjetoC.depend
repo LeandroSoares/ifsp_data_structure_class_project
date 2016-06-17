@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1466134345 source:c:\users\dougl\documents\repos\ifsp_data_structure_class_project\projetoc\client.c
+	"Client.h"
+
+1466133883 c:\users\dougl\documents\repos\ifsp_data_structure_class_project\projetoc\client.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1466142233 source:c:\users\dougl\documents\repos\ifsp_data_structure_class_project\projetoc\clientcollection.c
+	"ClientCollection.h"
+
+1466133883 c:\users\dougl\documents\repos\ifsp_data_structure_class_project\projetoc\clientcollection.h
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"Client.h"
+
+1466142302 source:c:\users\dougl\documents\repos\ifsp_data_structure_class_project\projetoc\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"Client.h"
+	"ClientCollection.h"
+

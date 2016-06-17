@@ -43,7 +43,7 @@ int lenghtClientCollection(ClientCollection *cc) {
         return 0;
     }
     int counter=0;
-    
+
     CC * no = *cc;
     while (no!=NULL) {
         counter++;
@@ -101,7 +101,7 @@ int push(ClientCollection *li, Client al) {
 }
 int pop(ClientCollection *li) {
     if(li==NULL)return 0;
-    
+
     CC *aux=*li;
     CC *last;
     last=aux;
@@ -109,7 +109,7 @@ int pop(ClientCollection *li) {
         last=aux;
         aux=aux->next;
     }
-    
+
     free(aux);
     last->next=NULL;
     lenghtClientCollection(li);
@@ -118,7 +118,7 @@ int pop(ClientCollection *li) {
 
 int insertClientOrdered(ClientCollection *li, Client client){
     if(li==NULL)return 0;
-    
+
     CC *no = (CC*)malloc(sizeof(CC));
     if (no==NULL)return 0;
     client.index = lenghtClientCollection(li)+1;
@@ -127,7 +127,7 @@ int insertClientOrdered(ClientCollection *li, Client client){
     if(isEmptyClientCollection(li)){
         printf("lista vazia");
         *li=no;
-        
+
     }
     else{
         CC *ant = NULL,*atual = *li;
@@ -144,14 +144,14 @@ int insertClientOrdered(ClientCollection *li, Client client){
             ant->next=no;
         }
     }
-    
+
     return 1;
 }
 
 void printAllClients(ClientCollection * cc) {
     printf("ClientCollection:[\n");
     CC *no =*cc;
-    
+
     while (no!=NULL) {
         Client current = no->client;
         printf("    (cod:%d nome: %s)\n", current.index, current.nome);
@@ -171,10 +171,20 @@ Client getClientByIndex(ClientCollection *cc, int index){
     return current;
 }
 
-int isEqualString(char *a,char *b){
-    for (; *a; ++a) {
-        if(tolower(*a)!=tolower(*b))return 0;
-        ++b;
+int isEqualString(char a[],char b[]){
+    int tamanhoa = strlen(a);
+    int tamanhob = strlen(b)-1;
+    if(tamanhoa==tamanhob){
+        int i;
+        for (; *a; ++a) {
+            printf("a:%c b:%c\n",*a, *b);
+            if(tolower(*a)!=tolower(*b)){
+                return 0;
+            }
+            ++b;
+        }
+    }else{
+        return 0;
     }
     return 1;
 }
@@ -186,10 +196,11 @@ Client * getClientByNome(ClientCollection *cc, char nome[30]){
             return &no->client;
         }
         else{
-        
             no = no->next;
             if(no!=NULL){
                 current = no->client;
+            }else{
+                return NULL;
             }
         }
     }
@@ -212,7 +223,7 @@ void updateClientByIndex(ClientCollection * cc, int index){
 
 int deleteClientByIndex(ClientCollection*list, int index){
     if(list==NULL)return 0;
-    
+
     CC *aux=*list;
     CC *last;
     last=aux;

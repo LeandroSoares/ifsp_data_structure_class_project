@@ -22,7 +22,7 @@ Client newClient(
     strcpy(c.telefone,telefone);
     strcpy(c.celular,celular);
     strcpy(c.email, email);
-    
+
     return c;
 }
 void updateClientData(Client *c,
@@ -50,50 +50,50 @@ void updateClientData(Client *c,
 //}
 
 void getClientFromUser(Client *c) {
-    
+
     char nome[30];
     char empresa[30];
     char departamento[30];
     char telefone[18];
     char celular[18];
     char email[40];
-    
+
     printf("Nome:[30 caracteres]\n");
     getchar();
     scanf ("%[^\n]%*c", nome);
-    
+
     printf("Empresa:[30 caracteres]\n");
 //    getchar();
     scanf("%[^\n]%*c",empresa);
-    
+
     printf("Departamento:[30 caracteres]\n");
 //    getchar();
     scanf("%[^\n]%*c", departamento);
-    
+
     printf("Telefone:[18 caracteres]\n");
 //    getchar();
     scanf("%[^\n]%*c", telefone);
-    
+
     printf("Celular:[18 caracteres]\n");
 //    getchar();
     scanf("%[^\n]%*c", celular);
-    
+
     printf("Email:[40 caracteres]\n");
 //    getchar();
     scanf("%[^\n]%*c", email);
     updateClientData(c, nome, empresa, departamento, telefone, celular, email);
 }
 void getClientFromUserChoice(Client *c) {
-    
+
     char nome[30];
     char empresa[30];
     char departamento[30];
     char telefone[18];
     char celular[18];
     char email[40];
-    
+
     printf("cod:%d\n",c->index);
-    
+
     if(desejaEditar("Nome", c->nome)){
         printf("Nome:[30 caracteres]\n");
         getchar();
@@ -143,7 +143,7 @@ void getClientFromUserChoice(Client *c) {
 }
 
 int desejaEditar(char *field,char *value) {
-    printf("%s: %s - Dejesa editar?(s/n):",field,value);
+    printf("%s: %s - Deseja editar?(s/n):",field,value);
     char choice ='n';
     scanf(" %c",&choice);
     return choice=='s'?1:0;
@@ -178,7 +178,8 @@ void saveClientToFile(FILE *file, Client client) {
 char * clientEncode(char *data, int length){
     int diff = (int)length-(int)strlen(data);
     if(diff>0){
-        for (int i=diff; i!=0; i--) {
+        int i;
+        for (i=diff; i!=0; i--) {
             data[strlen(data)+i]= ' ';
         }
     }
@@ -204,7 +205,7 @@ Client decodeClientData(char*data) {
     index = getWord(data, result.telefone,index);
     index = getWord(data, result.celular,index);
     index = getWord(data, result.email,index);
-    
+
 
     return result;
 }
