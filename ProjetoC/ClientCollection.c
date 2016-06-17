@@ -177,7 +177,6 @@ int isEqualString(char a[],char b[]){
     if(tamanhoa==tamanhob){
         int i;
         for (; *a; ++a) {
-            printf("a:%c b:%c\n",*a, *b);
             if(tolower(*a)!=tolower(*b)){
                 return 0;
             }

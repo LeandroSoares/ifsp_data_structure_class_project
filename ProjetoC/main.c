@@ -85,15 +85,14 @@ int main(int argc, const char * argv[]) {
                 break;
 
             case 3:
-                printf("Procurando client por cod.\nDigite o cod:");
-
+                printf("Procurando client por cod.\nDigite o cod: ");
                 scanf("%d", &cod);
                 cli = getClientByIndex(collection, cod);
                 printClient(cli);
                 s_pause();
                 break;
             case 4:
-                printf("Procurando client por nome.\nDigite o nome:");
+                printf("Procurando client por nome.\nDigite o nome: ");
                 char nome[30];
                 getchar();
                 fgets(nome,30,stdin);
@@ -106,14 +105,14 @@ int main(int argc, const char * argv[]) {
                 break;
             case 5:
                 printf("Atualizar contato\n");
-                printf("Procurando client por cod.\nDigite o cod:");
+                printf("Procurando client por cod.\nDigite o cod: ");
                 scanf("%d", &cod);
                 updateClientByIndex(collection, cod);
                 printf("Cliente Atualizado!\n");
                 s_pause();
                 break;
             case 6:
-                printf("Deletando client por cod.\nDigite o cod:");
+                printf("Deletando client por cod.\nDigite o cod: ");
 
                 scanf("%d", &cod);
                 deleteClientByIndex(collection, cod);
