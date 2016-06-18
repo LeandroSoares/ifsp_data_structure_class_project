@@ -35,27 +35,26 @@ void s_clear() { system("clear");}
 
 int main(int argc, const char * argv[]) {
 
-    ClientCollection * collection = newClientCollection();
+    ClientCollection * collection;
     FILE *save;
 
-    save = fopen("save.txt", "r");
-    char data[170];
     printf("Carregando arquivo de save...\n");
-
-    while(fgets(data, sizeof(data), save)) {
-
-        Client decoded = decodeClientData(data);
-        push(collection, decoded);
-    }
-
-
-    printf("Arquivo arquivo carregado!\n");
+    
+    save = fopen("save.txt", "r");
+    
+    collection = newClientCollectionFromDATA(save);
+    
     fclose(save);
+    
+    printf("Arquivo arquivo carregado!\n");
+    
     //inicia programa
 
     int choice = -1;
     Client cli;
-    int cod;
+    
+    int index;
+    
     do {
         s_clear();
         printf("1 - Novo contato\n");
@@ -63,8 +62,8 @@ int main(int argc, const char * argv[]) {
         printf("3 - Ver contato por cod\n");
         printf("4 - Ver contato nome\n");
         printf("5 - Editar contato nome\n");
-        printf("6 - deletar contato\n");
-        printf("0 - sair\n");
+        printf("6 - Deletar contato\n");
+        printf("0 - Sair\n");
 
         scanf("%d",&choice);
 
@@ -76,54 +75,53 @@ int main(int argc, const char * argv[]) {
                 getClientFromUser(&cli);
                 push(collection, cli);
                 printf("Cliente adicionado!\n");
-                s_pause();
                 break;
 
             case 2:
                 printAllClients(collection);
-                s_pause();
                 break;
 
             case 3:
-                printf("Procurando client por cod.\nDigite o cod: ");
-                scanf("%d", &cod);
-                cli = getClientByIndex(collection, cod);
+                printf("Procurando client por index.\nDigite o index: ");
+                scanf("%d", &index);
+                cli = getClientByIndex(collection, index);
                 printClient(cli);
-                s_pause();
                 break;
+            
             case 4:
-                printf("Procurando client por nome.\nDigite o nome: ");
+                printf("Procurando client por nome completo.\nDigite o nome: ");
                 char nome[30];
                 getchar();
-                fgets(nome,30,stdin);
+                fgets(nome, 30, stdin);
                 Client *ccc;
                 ccc = getClientByNome(collection, nome);
-                if (ccc!=NULL){
+                if (ccc!=NULL) {
                     printClient((*ccc));
                 }
-                s_pause();
                 break;
+            
             case 5:
                 printf("Atualizar contato\n");
-                printf("Procurando client por cod.\nDigite o cod: ");
-                scanf("%d", &cod);
-                updateClientByIndex(collection, cod);
+                printf("Procurando client por index.\nDigite o index: ");
+                scanf("%d", &index);
+                updateClientByIndex(collection, index);
                 printf("Cliente Atualizado!\n");
-                s_pause();
                 break;
+            
             case 6:
-                printf("Deletando client por cod.\nDigite o cod: ");
-
-                scanf("%d", &cod);
-                deleteClientByIndex(collection, cod);
+                printf("Deletando cliente por index.\nDigite o index: ");
+                scanf("%d", &index);
+                deleteClientByIndex(collection, index);
                 break;
+            
             case 0:
                 break;
+            
             default:
                 printf("Opção %d invalida\n", choice);
-                s_pause();
                 break;
         }
+        s_pause();
     } while (choice !=0);
 
 

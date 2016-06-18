@@ -19,6 +19,7 @@ typedef struct client_collection * ClientCollection;
 
 
 ClientCollection * newClientCollection();
+ClientCollection * newClientCollectionFromDATA(FILE *file);
 void deleteClientCollection(ClientCollection *cc);
 int isEmptyClientCollection(ClientCollection *cc);
 int lenghtClientCollection(ClientCollection *cc);

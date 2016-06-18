@@ -12,6 +12,7 @@ struct client_collection{
     Client client;
     struct client_collection *next;
 };
+
 typedef struct client_collection CC;
 
 ClientCollection * newClientCollection(){
@@ -20,6 +21,17 @@ ClientCollection * newClientCollection(){
         *cc=NULL;
     }
     return cc;
+}
+
+ClientCollection * newClientCollectionFromDATA(FILE *file) {
+    ClientCollection *collection = newClientCollection();
+    char data[170];
+    while(fgets(data, sizeof(data), file)) {
+        
+        Client decoded = decodeClientData(data);
+        push(collection, decoded);
+    }
+    return collection;
 }
 
 void deleteClientCollection(ClientCollection *cc) {
@@ -149,12 +161,19 @@ int insertClientOrdered(ClientCollection *li, Client client){
 }
 
 void printAllClients(ClientCollection * cc) {
-    printf("ClientCollection:[\n");
+    printf("ClientCollection: [\n");
+    
     CC *no =*cc;
-
+    
     while (no!=NULL) {
         Client current = no->client;
-        printf("    (cod:%d nome: %s)\n", current.index, current.nome);
+        printf("    (cod:%d nome: %s)", current.index, current.nome);
+        
+        if(no->next!=NULL) {
+            printf(",");
+        }
+        
+        printf("\n");
         no = no->next;
     }
     printf("]\n");
@@ -172,10 +191,9 @@ Client getClientByIndex(ClientCollection *cc, int index){
 }
 
 int isEqualString(char a[],char b[]){
-    int tamanhoa = strlen(a);
-    int tamanhob = strlen(b)-1;
+    int tamanhoa = (int)strlen(a);
+    int tamanhob = (int)strlen(b)-1;
     if(tamanhoa==tamanhob){
-        int i;
         for (; *a; ++a) {
             if(tolower(*a)!=tolower(*b)){
                 return 0;
@@ -187,6 +205,7 @@ int isEqualString(char a[],char b[]){
     }
     return 1;
 }
+
 Client * getClientByNome(ClientCollection *cc, char nome[30]){
     CC *no =*cc;
     Client current = no->client;

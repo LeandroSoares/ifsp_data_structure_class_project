@@ -92,11 +92,12 @@ void getClientFromUserChoice(Client *c) {
     char celular[18];
     char email[40];
 
-    printf("cod:%d\n",c->index);
+    printf("index:%d\n",c->index);
 
     if(desejaEditar("Nome", c->nome)){
         printf("Nome:[30 caracteres]\n");
         getchar();
+        //o [] é uma expressao asndahohdosai
         scanf ("%[^\n]%*c", nome);
     }else{
         strcpy(nome, c->nome);
@@ -150,7 +151,7 @@ int desejaEditar(char *field,char *value) {
 }
 
 void printClient(Client current) {
-    printf("COD:%d\n Nome: %s", current.index, current.nome);
+    printf("index:%d\n Nome: %s", current.index, current.nome);
     printf("\n Empresa: %s", current.empresa);
     printf("\n Departamento: %s", current.departamento);
     printf("\n Telefone: %s", current.telefone);
