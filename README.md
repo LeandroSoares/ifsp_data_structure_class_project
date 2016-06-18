@@ -15,3 +15,5 @@ Features
 Dificuldades
 
 - Fazer busca por string através do scanf, modificado para fgets
+- Para o mesmo problema anterior usando scanner no scanf
+- 
