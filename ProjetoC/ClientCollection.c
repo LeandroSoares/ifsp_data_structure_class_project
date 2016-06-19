@@ -27,7 +27,6 @@ ClientCollection * newClientCollectionFromDATA(FILE *file) {
     ClientCollection *collection = newClientCollection();
     char data[170];
     while(fgets(data, sizeof(data), file)) {
-        
         Client decoded = decodeClientData(data);
         push(collection, decoded);
     }
@@ -162,17 +161,17 @@ int insertClientOrdered(ClientCollection *li, Client client){
 
 void printAllClients(ClientCollection * cc) {
     printf("ClientCollection: [\n");
-    
+
     CC *no =*cc;
-    
+
     while (no!=NULL) {
         Client current = no->client;
         printf("    (cod:%d nome: %s)", current.index, current.nome);
-        
+
         if(no->next!=NULL) {
             printf(",");
         }
-        
+
         printf("\n");
         no = no->next;
     }
@@ -268,7 +267,7 @@ void saveCollectionToFile(FILE * file, ClientCollection * cc){
     while (no!=NULL) {
         Client current = no->client;
         saveClientToFile(file, current);
-        if(no->next!=NULL)
+        //if(no->next!=NULL)
             fputs("\n", file);
         no = no->next;
     }

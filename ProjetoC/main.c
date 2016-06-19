@@ -39,29 +39,29 @@ int main(int argc, const char * argv[]) {
     FILE *save;
 
     printf("Carregando arquivo de save...\n");
-    
+
     save = fopen("save.txt", "r");
-    
+
     collection = newClientCollectionFromDATA(save);
-    
+
     fclose(save);
-    
+
     printf("Arquivo arquivo carregado!\n");
-    
+
     //inicia programa
 
     int choice = -1;
     Client cli;
-    
+
     int index;
-    
+
     do {
         s_clear();
         printf("1 - Novo contato\n");
         printf("2 - Ver todos\n");
-        printf("3 - Ver contato por cod\n");
-        printf("4 - Ver contato nome\n");
-        printf("5 - Editar contato nome\n");
+        printf("3 - Ver contato por index\n");
+        printf("4 - Ver contato por nome completo\n");
+        printf("5 - Editar contato\n");
         printf("6 - Deletar contato\n");
         printf("0 - Sair\n");
 
@@ -87,7 +87,7 @@ int main(int argc, const char * argv[]) {
                 cli = getClientByIndex(collection, index);
                 printClient(cli);
                 break;
-            
+
             case 4:
                 printf("Procurando client por nome completo.\nDigite o nome: ");
                 char nome[30];
@@ -99,7 +99,7 @@ int main(int argc, const char * argv[]) {
                     printClient((*ccc));
                 }
                 break;
-            
+
             case 5:
                 printf("Atualizar contato\n");
                 printf("Procurando client por index.\nDigite o index: ");
@@ -107,16 +107,22 @@ int main(int argc, const char * argv[]) {
                 updateClientByIndex(collection, index);
                 printf("Cliente Atualizado!\n");
                 break;
-            
+
             case 6:
                 printf("Deletando cliente por index.\nDigite o index: ");
                 scanf("%d", &index);
                 deleteClientByIndex(collection, index);
                 break;
-            
+
             case 0:
+                save = fopen("save.txt", "w");
+                printf("\n\nSalvando dados...\n\n");
+                saveCollectionToFile(save, collection);
+                fclose(save);
+                printf("\n\nDados salvos com sucesso...\n\n");
+
                 break;
-            
+
             default:
                 printf("Opção %d invalida\n", choice);
                 break;
@@ -125,10 +131,6 @@ int main(int argc, const char * argv[]) {
     } while (choice !=0);
 
 
-    save = fopen("save.txt", "w");
-    printf("\n\nSalvando dados...\n\n");
-    saveCollectionToFile(save, collection);
 
-    fclose(save);
     return 0;
 }

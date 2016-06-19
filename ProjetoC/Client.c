@@ -172,7 +172,7 @@ void saveClientToFile(FILE *file, Client client) {
     strcat(clientString, clientEncode(client.celular, 18));
     strcat(clientString, ",");
     strcat(clientString, clientEncode(client.email, 40));
-    strcat(clientString, ",");
+    //strcat(clientString, "\0");
     fputs(clientString, file);
 }
 
@@ -189,7 +189,12 @@ char * clientEncode(char *data, int length){
 
 int getWord(char *data,char *buff,int index){
     int i=0;
+    int tamanho = (int) strlen(data);
     while(data[index]!=',') {
+
+        if (index == tamanho-1){
+            break;
+        }
         buff[i]=data[index];
         index++;
         i++;
@@ -206,7 +211,5 @@ Client decodeClientData(char*data) {
     index = getWord(data, result.telefone,index);
     index = getWord(data, result.celular,index);
     index = getWord(data, result.email,index);
-
-
     return result;
 }
