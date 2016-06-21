@@ -97,7 +97,7 @@ void getClientFromUserChoice(Client *c) {
     if(desejaEditar("Nome", c->nome)){
         printf("Nome:[30 caracteres]\n");
         getchar();
-        //o [] é uma expressao asndahohdosai
+        //o [] é uma expressao scanset
         scanf ("%[^\n]%*c", nome);
     }else{
         strcpy(nome, c->nome);
