@@ -1,7 +1,7 @@
 # ifsp_data_structure_class_project
 
-github-link: https://github.com/LeandroSoares/ifsp_data_structure_class_project
 Project of Data Structure discipline at IFSP-Guarulhos
+- github-link: https://github.com/LeandroSoares/ifsp_data_structure_class_project
 
 ##Desenvolvedores
 
